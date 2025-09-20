@@ -20,6 +20,17 @@ def latent2image(vae, latents, return_type=('np', 'pt')):
     # 还原缩放
     latents = 1 / 0.18215 * latents.detach()
 
+    # move/cast latents to the same device and dtype as the VAE parameters to avoid
+    # mixed-type operations (e.g. conv bias float vs input half) which raise runtime errors
+    vae_device = next(vae.parameters()).device if any(True for _ in vae.parameters()) else torch.device("cpu")
+    # prefer the dtype of the VAE parameters (usually float32)
+    try:
+        vae_dtype = next(vae.parameters()).dtype
+    except StopIteration:
+        vae_dtype = latents.dtype
+
+    latents = latents.to(device=vae_device, dtype=vae_dtype)
+
     # 解码
     image = vae.decode(latents)["sample"]  # (B, C, H, W)
 
@@ -94,48 +105,124 @@ def show_and_save_image(image, save_path=None, title=None):
 
 def generate_step(
     scheduler,
-    noise_pred :torch.FloatTensor,
-    timestep :int,
-    sample :torch.FloatTensor,
-    eta :float = 0.0
+    noise_pred: torch.Tensor,
+    timestep: int,
+    sample: torch.Tensor,
+    eta: float = 0.0,
+    dtype: torch.dtype = torch.float32,
+    device: torch.device = None,
 ):
+    """
+    Single denoising step that ensures intermediate tensors are created with `dtype`.
+    """
+    if device is None:
+        device = sample.device
+
+    # compute previous timestep index safely
     prev_timestep = timestep - scheduler.config.num_train_timesteps // scheduler.num_inference_steps
     prev_timestep = max(0, prev_timestep)
-    prev_alpha = scheduler.alphas_cumprod[prev_timestep]
-    alpha = scheduler.alphas_cumprod[timestep]
+
+    # make sure alphas are tensors with correct dtype/device
+    # scheduler.alphas_cumprod may be a numpy array or torch tensor
+    alphas = torch.as_tensor(scheduler.alphas_cumprod, dtype=dtype, device=device)
+    prev_alpha = alphas[prev_timestep]
+    alpha = alphas[timestep]
+
     beta = 1 - alpha
-    pred_dir = (1 - prev_alpha)**0.5 * noise_pred
-    pred_X0 = (sample - beta**0.5 * noise_pred) / alpha**0.5
-    pred_X=prev = prev_alpha**0.5 * pred_X0 + pred_dir
-    noise = torch.randn_like(sample)
+
+    pred_dir = (1 - prev_alpha).sqrt() * noise_pred
+    pred_X0 = (sample - beta.sqrt() * noise_pred) / alpha.sqrt()
+    pred_X = prev_alpha.sqrt() * pred_X0 + pred_dir
+
+    # create noise in requested dtype/device
+    noise = torch.randn_like(sample, dtype=dtype, device=device)
     if eta > 0:
-        sigma = eta * ((1 - alpha / prev_alpha) * (1 - prev_alpha) / (1 - alpha))**0.5
+        # compute sigma in dtype/device
+        # use float64 for intermediate math stability then cast
+        sigma = eta * (((1 - (alpha / prev_alpha)) * (1 - prev_alpha) / (1 - alpha)).to(dtype)).sqrt()
         pred_X = pred_X + sigma * noise
+
     return pred_X, pred_X0
 
-def generate_imag(latents,prompts,tokenizer,text_encoder,unet,scheduler,guidance_scale=7.5,device,num_inference_steps=20,eta=0.0):
-    text_input = tokenizer(
+def generate_imag(latents, prompts, tokenizer, text_encoder, unet, scheduler, device,
+                  guidance_scale=7.5, num_inference_steps=20, eta=0.0, dtype=torch.float16):
+    """
+    Generate latents using classifier-free guidance.
+
+    Args:
+        latents: initial latent tensor of shape (B, C, H, W)
+        prompts: either a single string, or list of `B` strings (conditional prompts)
+        tokenizer, text_encoder, unet, scheduler: models/objects
+        device: torch device
+        guidance_scale: classifier-free guidance scale
+        num_inference_steps, eta, dtype: scheduler / numeric params
+
+    Returns:
+        latents tensor after denoising (shape (B, C, H, W))
+    """
+    # normalize prompts to list
+    if isinstance(prompts, str):
+        prompts = [prompts]
+
+    # batch size from latents
+    batch_size = latents.shape[0]
+
+    # ensure number of conditional prompts matches batch_size
+    if len(prompts) != batch_size:
+        # if user passed a single conditional prompt but batch_size > 1, broadcast
+        if len(prompts) == 1:
+            prompts = prompts * batch_size
+        else:
+            raise ValueError(f"Number of prompts ({len(prompts)}) must equal batch size ({batch_size}) or be 1.")
+
+    # tokenize conditional prompts
+    cond_input = tokenizer(
         prompts,
         padding="max_length",
         max_length=77,
         truncation=True,
         return_tensors="pt",
     )
+
+    # tokenize unconditional (empty) prompts for classifier-free guidance
+    uncond_input = tokenizer(
+        [""] * batch_size,
+        padding="max_length",
+        max_length=77,
+        truncation=True,
+        return_tensors="pt",
+    )
+
+    # move input ids and get embeddings in correct dtype/device
+    cond_ids = cond_input.input_ids.to(device)
+    uncond_ids = uncond_input.input_ids.to(device)
+
     with torch.no_grad():
-        text_embeddings = text_encoder(text_input.input_ids.to(device))[0]
+        cond_embeddings = text_encoder(cond_ids)[0].to(dtype=dtype, device=device)
+        uncond_embeddings = text_encoder(uncond_ids)[0].to(dtype=dtype, device=device)
+
+    # concatenate unconditional and conditional embeddings to shape (2*B, seq, dim)
+    text_embeddings = torch.cat([uncond_embeddings, cond_embeddings], dim=0)
+
+    # ensure latents are the requested dtype/device
+    latents = latents.to(dtype=dtype, device=device)
 
     scheduler.set_timesteps(num_inference_steps)
 
     for t in tqdm(scheduler.timesteps):
-        latent_model_input = torch.cat([latents] * 2)
+        # expand latents for classifier-free guidance: (B,...) -> (2*B,...)
+        latent_model_input = torch.cat([latents, latents], dim=0).to(dtype=dtype, device=device)
+
+        # some schedulers require scaling the model input
         latent_model_input = scheduler.scale_model_input(latent_model_input, t)
 
         with torch.no_grad():
             noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
+        # split and do guidance in dtype
         noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
-        noise_pred = noise_pred_uncond + guidance_scale* (noise_pred_text - noise_pred_uncond)
+        noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
 
-        latents, _ = generate_step(scheduler, noise_pred, t, latents, eta)
+        latents, _ = generate_step(scheduler, noise_pred, t, latents, eta, dtype=dtype, device=device)
 
     return latents
