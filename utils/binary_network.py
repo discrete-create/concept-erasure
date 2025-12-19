@@ -62,8 +62,8 @@ class MyDataset(Dataset):
 # ⚠️ 示例加载部分，请替换为你自己的数据路径
 # train_dataset = RandomDataset(500)
 # val_dataset = RandomDataset(100)
-train_dataset = torch.load('intermediate.pt')
-train_dataset1 = torch.load('intermediate_unsafe.pt')
+train_dataset = torch.load('/root/autodl-tmp/output/safe_latents.pt')
+train_dataset1 = torch.load('/root/autodl-tmp/output/unsafe_latents.pt')
 train_dataset = MyDataset(train_dataset, label=0)
 train_dataset1 = MyDataset(train_dataset1, label=1)
 train_dataset = ConcatDataset([train_dataset, train_dataset1])

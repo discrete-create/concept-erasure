@@ -211,7 +211,7 @@ def generate_imag(latents, prompts, tokenizer, text_encoder, unet, scheduler, de
 
     scheduler.set_timesteps(num_inference_steps)
     intermediate_latent={}
-    for t in tqdm(scheduler.timesteps):
+    for t in scheduler.timesteps:
         # expand latents for classifier-free guidance: (B,...) -> (2*B,...)
         latent_model_input = torch.cat([latents, latents], dim=0).to(dtype=dtype, device=device)
 
@@ -228,102 +228,109 @@ def generate_imag(latents, prompts, tokenizer, text_encoder, unet, scheduler, de
         latents, _ = generate_step(scheduler, noise_pred, t, latents, eta, dtype=dtype, device=device)
         if prompts[0] not in intermediate_latent :
             intermediate_latent[prompts[0]]={}
-        intermediate_latent[prompts[0]][t]=_
+        if(t<150):
+            intermediate_latent[prompts[0]][t]=_
     return latents,intermediate_latent
 def control_func(time_step):
     return (time_step-500)/500
 
-def generate_imag_with_b_net(latents, prompts, tokenizer, text_encoder, unet, scheduler, device,
-                            binary_network, sample_length, vae=None, bnet_input_size=224,
-                            guidance_scale=7.5, num_inference_steps=20, eta=0.0, dtype=torch.float16):
-    """
-    Generate latents using classifier-free guidance.
+def generate_imag_with_b_net(
+        latents, prompts, tokenizer, text_encoder, unet, scheduler, device,
+        binary_network, sample_length, IMG_SIZE=224,
+        guidance_scale=7.5, num_inference_steps=20, eta=0.0, dtype=torch.float16):
 
-    Args:
-        latents: initial latent tensor of shape (B, C, H, W)
-        prompts: either a single string, or list of `B` strings (conditional prompts)
-        tokenizer, text_encoder, unet, scheduler: models/objects
-        device: torch device
-        guidance_scale: classifier-free guidance scale
-        num_inference_steps, eta, dtype: scheduler / numeric params
-
-    Returns:
-        latents tensor after denoising (shape (B, C, H, W))
-    """
-    guidance_scale1=guidance_scale
-    # normalize prompts to list
+    # --- Normalize prompts ---
     if isinstance(prompts, str):
         prompts = [prompts]
-    # batch size from latents
-    batch_size = latents.shape[0]
 
-    # ensure number of conditional prompts matches batch_size
+    batch_size = latents.shape[0]
     if len(prompts) != batch_size:
-        # if user passed a single conditional prompt but batch_size > 1, broadcast
         if len(prompts) == 1:
             prompts = prompts * batch_size
         else:
-            raise ValueError(f"Number of prompts ({len(prompts)}) must equal batch size ({batch_size}) or be 1.")
+            raise ValueError("Prompts count must match batch size or be 1.")
 
-    # tokenize conditional prompts
-    cond_input = tokenizer(
-        prompts,
-        padding="max_length",
-        max_length=77,
-        truncation=True,
-        return_tensors="pt",
-    )
+    # --- Tokenize ---
+    cond_ids = tokenizer(prompts, padding="max_length", max_length=77,
+                         truncation=True, return_tensors="pt").input_ids.to(device)
+    uncond_ids = tokenizer([""] * batch_size, padding="max_length", max_length=77,
+                           truncation=True, return_tensors="pt").input_ids.to(device)
 
-    # tokenize unconditional (empty) prompts for classifier-free guidance
-    uncond_input = tokenizer(
-        [""] * batch_size,
-        padding="max_length",
-        max_length=77,
-        truncation=True,
-        return_tensors="pt",
-    )
-
-    # move input ids and get embeddings in correct dtype/device
-    cond_ids = cond_input.input_ids.to(device)
-    uncond_ids = uncond_input.input_ids.to(device)
-    # 参数设置
-    lam = 0.005  # 控制衰减速度，越大越陡峭
-    
-    # 采样：使用指数分布后截断到 [0, 1000]
-    samples = expon(scale=1/lam).rvs(size=sample_length)
-    samples = samples[samples <= 1000]  # 截断到上限
     with torch.no_grad():
-        cond_embeddings = text_encoder(cond_ids)[0].to(dtype=dtype, device=device)
-        uncond_embeddings = text_encoder(uncond_ids)[0].to(dtype=dtype, device=device)
+        cond_emb = text_encoder(cond_ids)[0].to(dtype=dtype, device=device)
+        uncond_emb = text_encoder(uncond_ids)[0].to(dtype=dtype, device=device)
 
-    # concatenate unconditional and conditional embeddings to shape (2*B, seq, dim)
-    text_embeddings = torch.cat([uncond_embeddings, cond_embeddings], dim=0)
+    text_embeddings = torch.cat([uncond_emb, cond_emb], dim=0)
 
-    # ensure latents are the requested dtype/device
     latents = latents.to(dtype=dtype, device=device)
-
     scheduler.set_timesteps(num_inference_steps)
-    flag=0
-    
-    for t in tqdm(scheduler.timesteps):
-        # expand latents for classifier-free guidance: (B,...) -> (2*B,...)
-        latent_model_input = torch.cat([latents, latents], dim=0).to(dtype=dtype, device=device)
 
-        # some schedulers require scaling the model input
-        latent_model_input = scheduler.scale_model_input(latent_model_input, t)
+    # ============================================================
+    #  Begin denoising
+    # ============================================================
+    for t in tqdm(scheduler.timesteps):
+        latent_in = torch.cat([latents, latents], dim=0)
+        latent_in = scheduler.scale_model_input(latent_in, t)
 
         with torch.no_grad():
-            noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
+            noise_pred = unet(latent_in, t, encoder_hidden_states=text_embeddings).sample
 
-        # split and do guidance in dtype
         noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
-        if(flag>999):
-            print("control")
-            guidance_scale1=guidance_scale*control_func(t)
-            flag=0
-        noise_pred = noise_pred_uncond + guidance_scale1 * (noise_pred_text - noise_pred_uncond)
-        guidance_scale1=guidance_scale
-        latents, imgs = generate_step(scheduler, noise_pred, t, latents, eta, dtype=dtype, device=device)
-        closest = min(samples, key=lambda x: abs(x - t))
-        distance = abs(closest - t)
+
+        # ================================
+        # 生成基础 CFG guidance（但不应用）
+        # ================================
+        base_guidance = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
+
+        # ================================
+        # 更新 latent，得到 imgs（用于 binary_network）
+        # ================================
+        latents, imgs = generate_step(
+            scheduler, base_guidance, t, latents, eta,
+            dtype=dtype, device=device
+        )
+
+        # 注意：imgs 是四通道：RGB + reserved
+        # 严格按照你训练的方式处理
+        with torch.no_grad():
+            # resize → 训练时的处理
+            imgs_resized = torch.nn.functional.interpolate(
+                imgs, size=(IMG_SIZE, IMG_SIZE), mode='bilinear', align_corners=False
+            )
+
+            reserved = imgs_resized[:, 3:4, :, :]   # (B,1,H,W)
+            imgs_rgb = imgs_resized[:, :3, :, :]     # 取 RGB
+            imgs_rgb = imgs_rgb + reserved / 3        # 平均加回 RGB
+
+            bnet_in = imgs_rgb     # 现在是 (B,3,H,W)
+            bnet_out = binary_network(bnet_in).squeeze()   # (B,)
+            pred = (bnet_out > 0).long()    # 0 或 1
+            print("pred",pred)
+            enable_control = pred
+
+        # ================================
+        # 根据 bnet 输出调整 guidance_scale
+        # ================================
+        final_noise = []
+        for i in range(batch_size):
+            if enable_control[i].item() == 1:
+                # 使用 control_func(t)
+                print("trigger")
+                gs = guidance_scale #* control_func(t)
+            else:
+                gs = guidance_scale
+
+            guided = noise_pred_uncond[i] + gs * (noise_pred_text[i] - noise_pred_uncond[i])
+            final_noise.append(guided)
+
+        noise_pred = torch.stack(final_noise, dim=0)
+
+        # ================================
+        # 用真正的 noise_pred 更新 latent
+        # ================================
+        latents, imgs = generate_step(
+            scheduler, noise_pred, t, latents, eta,
+            dtype=dtype, device=device
+        )
+
     return latents
