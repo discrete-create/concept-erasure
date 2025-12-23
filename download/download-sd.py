@@ -10,5 +10,5 @@ pipe = DiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_
 
 prompt = "A high tech solarpunk utopia in the Amazon rainforest"
 image = pipe(prompt).images[0]
-image.save("solarpunk_utopia.png")
+image.save("download/solarpunk_utopia.png")
 

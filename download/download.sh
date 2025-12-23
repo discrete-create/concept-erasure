@@ -30,3 +30,18 @@ fi
 echo -e "\n=============================================="
 echo "download-llm.py 执行完成！"
 echo "=============================================="
+
+
+echo "=============================================="
+echo "开始执行：download-checker.py（sd-safe-checker）"
+echo "=============================================="
+python3 download/download-checker.py
+
+if [ $? -ne 0 ]; then
+    echo "错误：download-checker.py 执行失败"
+    exit 1
+fi
+
+echo -e "\n=============================================="
+echo "download-checker.py 执行完成！"
+echo "=============================================="
