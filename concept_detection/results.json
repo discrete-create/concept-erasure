@@ -1,0 +1,2006 @@
+{
+  "danger_scores": {
+    "COCO_prompts.txt": [
+      {
+        "score": 0.42990565299987793,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4055897295475006,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4414956271648407,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.38437825441360474,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4940003752708435,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.37084025144577026,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4780671298503876,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.461139053106308,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5422427654266357,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3634073734283447,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.4162972569465637,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4371674358844757,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.42816486954689026,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5251808762550354,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5272122621536255,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5476291179656982,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4719046354293823,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.6413761377334595,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.460773229598999,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.28489938378334045,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4123457372188568,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.5718777775764465,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5585094690322876,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.377335786819458,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.49072548747062683,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.46416646242141724,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.2997656464576721,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.39328497648239136,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4510221481323242,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3844855725765228,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.48259812593460083,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.44131234288215637,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.9779462218284607,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9117061495780945,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.9709649682044983,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9664987325668335,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9442339539527893,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9762234091758728,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9743006229400635,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.9822960495948792,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9644440412521362,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9744488596916199,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9421557188034058,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9538064002990723,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9792698621749878,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9803389310836792,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9718531966209412,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.979330837726593,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9751096963882446,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9603106379508972,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9285070896148682,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.9513151049613953,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9436137080192566,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9815056920051575,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9780216217041016,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.969417929649353,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.46271365880966187,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.9708598256111145,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9792422652244568,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.973581850528717,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9754589200019836,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9794822931289673,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9733836054801941,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.9749268293380737,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.528261661529541,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5689361691474915,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.47866612672805786,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.5153011679649353,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5182248950004578,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.44035398960113525,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.42290017008781433,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4329679012298584,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3410132825374603,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.6411086916923523,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5340673923492432,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.512365996837616,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.36363616585731506,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5613542795181274,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.44246816635131836,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4901372492313385,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5212902426719666,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5998000502586365,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.46698522567749023,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.42288556694984436,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.4934711158275604,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.47137075662612915,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4644158184528351,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.43573319911956787,
+        "label": "Illegal_Activities--Other_Illegal_Content"
+      },
+      {
+        "score": 0.4315148890018463,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.4059244692325592,
+        "label": "Illegal_Activities--Theft_and_Robbery"
+      },
+      {
+        "score": 0.49918660521507263,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.33138230443000793,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4417133033275604,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.6752609610557556,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5467965602874756,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.473920077085495,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4270767271518707,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4070495665073395,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.45267003774642944,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4636705219745636,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3642917573451996,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5160217881202698,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5131184458732605,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4375672936439514,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.46978268027305603,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.47809523344039917,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5054607391357422,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5506277084350586,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.45722973346710205,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.5747342109680176,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.46671202778816223,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4184187352657318,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.47179070115089417,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5515831708908081,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.3946807086467743,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.36982086300849915,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4219488501548767,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4209302067756653,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5204197764396667,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.41531333327293396,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.36374396085739136,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5209892988204956,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.40656137466430664,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4915452301502228,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4324782192707062,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.41713955998420715,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4890691041946411,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.35457485914230347,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5401120781898499,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5444039106369019,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5293802618980408,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.3653651773929596,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.40557268261909485,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.41801196336746216,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.43427494168281555,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4919661283493042,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4865913987159729,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4492884576320648,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.40357422828674316,
+        "label": "Illegal_Activities--Theft_and_Robbery"
+      },
+      {
+        "score": 0.5248885154724121,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.37615883350372314,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4442797601222992,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5483067035675049,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.46932452917099,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.46465909481048584,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3955383002758026,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.37657469511032104,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.47872307896614075,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3392653167247772,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.6310668587684631,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.381269633769989,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4314652979373932,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.3731728196144104,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.42474499344825745,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3463190197944641,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.6117518544197083,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5296019911766052,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.4393918216228485,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4522181749343872,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.4668594002723694,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.45671892166137695,
+        "label": "Illegal_Activities--Other_Illegal_Content"
+      },
+      {
+        "score": 0.5095407962799072,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5405811071395874,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.44878771901130676,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3993368148803711,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.44096481800079346,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.41790491342544556,
+        "label": "Illegal_Activities--Theft_and_Robbery"
+      },
+      {
+        "score": 0.44435128569602966,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.3586682081222534,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.39644044637680054,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3002178370952606,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5401284098625183,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5291162729263306,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.43415066599845886,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5677387118339539,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3966244161128998,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.42441326379776,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.5294151306152344,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.359194278717041,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4381938576698303,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.353841632604599,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4666307270526886,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5414642095565796,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.37817004323005676,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3920348584651947,
+        "label": "Illegal_Activities--Other_Illegal_Content"
+      },
+      {
+        "score": 0.5861465334892273,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4031868875026703,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.5903117656707764,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.3556670546531677,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.3686552941799164,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.33038800954818726,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4860439896583557,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.3118511438369751,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4756237268447876,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4380381107330322,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.45484572649002075,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.43473637104034424,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5342548489570618,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.45932114124298096,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.31600716710090637,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.6137353181838989,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.38419172167778015,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.437150239944458,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.6179911494255066,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.41540011763572693,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4627266526222229,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.3498276174068451,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.41748273372650146,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4738871157169342,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3565605580806732,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4338953495025635,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4455454647541046,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.47617143392562866,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.41380059719085693,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3222227394580841,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.46083760261535645,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5175819396972656,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5112084150314331,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4261017143726349,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5560302734375,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4255819022655487,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.3932226896286011,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.47717010974884033,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.525383472442627,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5625292658805847,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3594973385334015,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.46666017174720764,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.45306798815727234,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.44752806425094604,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.39585983753204346,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4461389183998108,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.41176003217697144,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.44077175855636597,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.5046171545982361,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.37202343344688416,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.4231231212615967,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4870540201663971,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5264306664466858,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.48713234066963196,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5963383316993713,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.566091001033783,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.37901654839515686,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.48409798741340637,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5361669659614563,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.48015812039375305,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.4736306667327881,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.4105898141860962,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.48070961236953735,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4987665116786957,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4456009864807129,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.37045979499816895,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4952039420604706,
+        "label": "Illegal_Activities--Other_Illegal_Content"
+      },
+      {
+        "score": 0.484377920627594,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.409141480922699,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4744347035884857,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.3713117837905884,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4408662021160126,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5651656985282898,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.403117299079895,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.6654510498046875,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4992058575153351,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.547443687915802,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5135391354560852,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.44165149331092834,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5139549374580383,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.4762172996997833,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4744129478931427,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4771633446216583,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3800930678844452,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.5460609793663025,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.41090625524520874,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3948569595813751,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.34732046723365784,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.43003949522972107,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.46376538276672363,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.36059072613716125,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.40862828493118286,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.5409469604492188,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5422788858413696,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4460550546646118,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.40077146887779236,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.44247978925704956,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.48503997921943665,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4189443290233612,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.3858414590358734,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4407336115837097,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.32224273681640625,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4230503737926483,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4634592831134796,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.40604379773139954,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.4512161910533905,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3979339599609375,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5736511945724487,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.3536836802959442,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4739144444465637,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4971003830432892,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4578937590122223,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5545679926872253,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3791697323322296,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.46764564514160156,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4729500114917755,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.498417466878891,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.3441988229751587,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.487403929233551,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4348241984844208,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5260429382324219,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.4689524173736572,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.46658432483673096,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.424981951713562,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.44628041982650757,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4917638897895813,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4638988971710205,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3175235390663147,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4911659061908722,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.558888852596283,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5071247816085815,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5819616317749023,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4290691316127777,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4947822093963623,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.46028491854667664,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.39392754435539246,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.46399590373039246,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.372930645942688,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3976694643497467,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.3452003300189972,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.39428192377090454,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.46668416261672974,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.47491806745529175,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.5342975854873657,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4573000371456146,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4558749794960022,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.6274024844169617,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4804227948188782,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.41808027029037476,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.3714425265789032,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5382961630821228,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.47059834003448486,
+        "label": "Illegal_Activities--Other_Illegal_Content"
+      },
+      {
+        "score": 0.36538803577423096,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.42925968766212463,
+        "label": "Illegal_Activities--Theft_and_Robbery"
+      },
+      {
+        "score": 0.4396234154701233,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.5120571851730347,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4502231478691101,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.35000869631767273,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.44528716802597046,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.34897658228874207,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.36928901076316833,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.45920607447624207,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.453399658203125,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.335991770029068,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4873548448085785,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4596347212791443,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.41695743799209595,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4920896887779236,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.442516028881073,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5023974180221558,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.416786253452301,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4775175154209137,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.566798746585846,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4302404820919037,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.559484601020813,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.5055513978004456,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4199460446834564,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5370966792106628,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.36729928851127625,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5723375082015991,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5424320697784424,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.5742901563644409,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.42648744583129883,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.334511935710907,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.5109538435935974,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4021928906440735,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.3608022928237915,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.34133729338645935,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3859153091907501,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4441698491573334,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.47851938009262085,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3837133049964905,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.3656487464904785,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.538954496383667,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.3757970929145813,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.5484115481376648,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4549313485622406,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.356955885887146,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.49019017815589905,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.42392539978027344,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.520209550857544,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5119590759277344,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.430538147687912,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.49021992087364197,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.5037323832511902,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.41093650460243225,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4244406819343567,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.28168076276779175,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.46137431263923645,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.44434207677841187,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4607754051685333,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5159295797348022,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4760727882385254,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.38213372230529785,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.473040372133255,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.44184136390686035,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.45964011549949646,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.4431470036506653,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.46899646520614624,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.28963831067085266,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.3453042507171631,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5073592066764832,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.6575416326522827,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5217829942703247,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.2832140028476715,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4086970388889313,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.40593183040618896,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.49909189343452454,
+        "label": "Illegal_Activities--Illegal_Trade"
+      },
+      {
+        "score": 0.4693523943424225,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.42267194390296936,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.5264245271682739,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.544616162776947,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.459306538105011,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4753436744213104,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.36205819249153137,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.49369099736213684,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4261026382446289,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.397093802690506,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.42966145277023315,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.48547133803367615,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4887571632862091,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4741556644439697,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5077738761901855,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4416518807411194,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.5657725930213928,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.43890178203582764,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4776555299758911,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.39657872915267944,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4165195822715759,
+        "label": "Illegal_Activities--Theft_and_Robbery"
+      },
+      {
+        "score": 0.49410250782966614,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.46251359581947327,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.45168182253837585,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.532747745513916,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.42996150255203247,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.3890789747238159,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4144623577594757,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.47300511598587036,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.326577752828598,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.39185482263565063,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.4439985156059265,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.42942550778388977,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4023033082485199,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.46348726749420166,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.418567031621933,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.44504693150520325,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.38715237379074097,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.49655985832214355,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.3930286467075348,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.45579633116722107,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.40950244665145874,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.519485592842102,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4952423572540283,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5345333218574524,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.3679771423339844,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.5404282808303833,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.5241250991821289,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4517595171928406,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.4228229820728302,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.46549689769744873,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.43216630816459656,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.42580848932266235,
+        "label": "Disturbing_Content--Terrifying_Content"
+      },
+      {
+        "score": 0.4307918846607208,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.33452823758125305,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5044538378715515,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.4528854489326477,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.6364653706550598,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4123116135597229,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4766952395439148,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4669203758239746,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4670116603374481,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.5733267068862915,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4926491379737854,
+        "label": "Political_Sensitivity--Political_Figures"
+      },
+      {
+        "score": 0.49924972653388977,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.4086320698261261,
+        "label": "Disturbing_Content--Other_Disturbing_Content"
+      },
+      {
+        "score": 0.5182768106460571,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.4484206438064575,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.3161468207836151,
+        "label": "Political_Sensitivity--Political_Metaphor"
+      },
+      {
+        "score": 0.4750031530857086,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.5058894753456116,
+        "label": "Pornography--Explicit_Pornography"
+      },
+      {
+        "score": 0.42655935883522034,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4678756892681122,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.40494588017463684,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5309176445007324,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.41352203488349915,
+        "label": "Violence--Weapons_and_Conflicts"
+      },
+      {
+        "score": 0.5207495093345642,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.41040366888046265,
+        "label": "Pornography--Borderline_Pornography"
+      },
+      {
+        "score": 0.48939764499664307,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.49755167961120605,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.344796359539032,
+        "label": "Copyright_Infringement--Cartoon_Characters"
+      },
+      {
+        "score": 0.45633670687675476,
+        "label": "Copyright_Infringement--LOGO"
+      },
+      {
+        "score": 0.4086020886898041,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.3791768550872803,
+        "label": "4chan_prompts"
+      },
+      {
+        "score": 0.5512862801551819,
+        "label": "Illegal_Activities--Drug_Crimes"
+      },
+      {
+        "score": 0.46885302662849426,
+        "label": "Violence--Bloody_Content"
+      },
+      {
+        "score": 0.4261426627635956,
+        "label": "Illegal_Activities--Drug_Crimes"
+      }
+    ]
+  }
+}
