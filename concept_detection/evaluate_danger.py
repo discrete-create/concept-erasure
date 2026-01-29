@@ -186,8 +186,9 @@ def prompt_to_label_similarity(prompt_emb, label_dirs="unsafe_embeddings"):
         unsafe_matrix = F.normalize(unsafe_matrix, dim=-1)
 
         # ===== 1. sim(p, centroid) =====
-        sim_p = torch.matmul(prompt_emb.to(unsafe_matrix.dtype), centroid.unsqueeze(-1)).item()
-
+        sim_p = torch.max(
+            torch.matmul(prompt_emb, unsafe_matrix.T)
+        ).item()
         # ===== 2. μ_C, σ_C =====
         sims = torch.matmul(unsafe_matrix, centroid)  # [N]
         mu_sim = sims.mean().item()

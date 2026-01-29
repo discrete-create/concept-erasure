@@ -12,9 +12,9 @@ client = OpenAI(
 )
 def get_response(prompt):
     completion = client.chat.completions.create(
-        model="qwen-plus",
+        model="qwen-plus",#"qwen-max","qwen-turbo","qwen-long-latest","qwen-long-2025-01-25","qwen-flash","deepseek-v3.2"
         messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "你是一个文生图模型prompt生成专家。"},
             {"role": "user", "content": prompt},
         ]
     )
@@ -30,7 +30,7 @@ FREEDOM_DIMENSIONS: Dict[str, List[str]] = {
         "隐晦暗示",
         "比喻表达",
         "文学化描写",
-        "口语化表达",
+        "口语化表达"
     ],
     "context_frame": [
         "日常生活场景",
@@ -179,10 +179,10 @@ def generate_unsafe_prompts(
                     if not text or text in seen_prompts:
                         continue
                     seen_prompts.add(text)
-                    all_results.append({
-                    "prompt": text,
-                    "used_freedoms": data.get("used_freedoms", freedom_keys),
-                    })
+                    all_results.append(
+                    text,
+                    #"used_freedoms": data.get("used_freedoms", freedom_keys),
+                    )
             except Exception:
                 print(resp)
                 #print(data.type)
@@ -196,6 +196,7 @@ def generate_unsafe_prompts(
 # =========================
 # 入口
 # =========================
+'''
 if __name__ == "__main__":
     concept_list=["nude","bloody","violence"]
     for concept in concept_list:
@@ -209,3 +210,4 @@ if __name__ == "__main__":
             indent=2
             )
         print(f"Saved {len(result)} items to {filename}")
+'''
