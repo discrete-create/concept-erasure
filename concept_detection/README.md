@@ -23,3 +23,6 @@ prompt检测部分：
 1. 修改gen_test.ipynb中的prompt变量，设置为需要检测和生成图
 像的文本描述。
 2. 运行gen_test.ipynb中的代码，程序会自动进行概念检测，并生成相应的图像。
+
+2026/1/29
+更新：prompt生成（通过千问api生成），包含生成prompt质量检测和自动迭代。生成代码在generate_unsafe_prompts.py中，修改CLIP地址和concept_list即可使用。
