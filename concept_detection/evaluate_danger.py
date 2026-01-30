@@ -39,7 +39,7 @@ def encode_batch_prompts(prompts,tokenizer, text_encoder, DEVICE='cuda'):
 
 import torch
 import numpy as np
-def extract_danger_labels(sim_dict, threshold=1.0):
+def extract_danger_labels(sim_dict, threshold=0.0):
     """
     sim_dict: {label_name: z_score}
     return: {label_name: z_score} (z_score >= threshold)
@@ -49,7 +49,7 @@ def extract_danger_labels(sim_dict, threshold=1.0):
     for label, z in sim_dict.items()
     if z >= threshold
     }
-def build_danger_subspace(unsafe_matrix, k=16):
+def build_danger_subspace(unsafe_matrix, k=1):
     """
     unsafe_matrix: [N, D] tensor
     k: PCA 保留主成分数量
@@ -186,6 +186,7 @@ def prompt_to_label_similarity(prompt_emb, label_dirs="unsafe_embeddings"):
         unsafe_matrix = F.normalize(unsafe_matrix, dim=-1)
 
         # ===== 1. sim(p, centroid) =====
+        prompt_emb=prompt_emb.float()
         sim_p = torch.max(
             torch.matmul(prompt_emb, unsafe_matrix.T)
         ).item()
@@ -201,7 +202,7 @@ def prompt_to_label_similarity(prompt_emb, label_dirs="unsafe_embeddings"):
 
     return similarity_dict
 
-def mean_text_embedding(safe_prompt_list, normalize=True):
+def mean_text_embedding(safe_prompt_list, normalize=False):
     """
     safe_prompt_list: List[Tensor]
         each tensor is [77, 768] or [1, 77, 768]
@@ -227,7 +228,7 @@ def mean_text_embedding(safe_prompt_list, normalize=True):
     if normalize:
         mean_emb = F.normalize(mean_emb, dim=-1)
 
-    return mean_emb
+    return mean_emb.unsqueeze(0).cuda().to(torch.float16)
 @torch.no_grad()
 def sanitize_token_embeddings(
     full_hidden,      # [1, 77, 768]
@@ -242,9 +243,7 @@ def sanitize_token_embeddings(
     delta = eos_safe - eos_orig  # [1, 768]
 
     # 只对非 padding token 施加
-    delta = delta.unsqueeze(1)   # [1, 1, 768]
-
+    delta = F.normalize(delta.unsqueeze(1),dim=-1)   # [1, 1, 768]
     # 小步注入（不破分布）
-    hidden_safe = full_hidden + strength * delta
-
+    hidden_safe = full_hidden.cpu() + strength * delta
     return hidden_safe
