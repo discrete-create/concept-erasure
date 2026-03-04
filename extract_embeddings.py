@@ -36,12 +36,12 @@ def extract_embeddings(concepts: list,
                        use_fp16: bool = False):
     # fixed set of prompt templates; concept will be formatted into each
     templates = [
-        "a photo of {}",
-        "a picture of {}",
-        "a rendering of {}",
-        "a sketch of {}",
-        "an illustration of {}",
-        "an image of {}",
+        "a photo of {}, without any background",
+        "a picture of {}, without any background",
+        "a rendering of {}, without any background",
+        "a sketch of {}, without any background",
+        "an illustration of {}, without any background",
+        "an image of {}, without any background",
     ]
     """Run diffusion generation(s) and capture attention outputs for prompts.
 

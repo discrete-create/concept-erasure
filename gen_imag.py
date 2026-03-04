@@ -81,53 +81,106 @@ def step(
 
 
 def _create_steering_hook(idx, steer_tensor, strength):
-    """Return a forward hook that adds a scaled steer_tensor to its output.
-
-    ``idx`` is used for logging only; hooks themselves operate on the
-    activation tensor produced by the module.
     """
+    steer_tensor: Tensor of shape [N, C]
+                  embedding bank used for cosine search
+    strength: float
+    """
+
+    # 预归一化 bank（只做一次）
+    steer_bank = F.normalize(steer_tensor, dim=-1)
+
     def hook(module, inputs, output):
-        # attempt in-place addition for efficiency
-        try:
-            return output + strength * steer_tensor
-        except Exception:
-            return output + strength * steer_tensor
+
+        # output shape: [B, C, H, W] or [B, C]
+        if output.dim() == 4:
+            # Global average pooling
+            query = output.mean(dim=[2, 3])  # [B, C]
+        else:
+            query = output  # already [B, C]
+
+        # normalize query
+        query_norm = F.normalize(query, dim=-1)
+
+        # cosine similarity
+        # [B, C] @ [C, N] -> [B, N]
+        sim = torch.matmul(query_norm, steer_bank.T)
+
+        # find most similar embedding index
+        best_idx = sim.argmax(dim=-1)  # [B]
+
+        # gather corresponding vectors
+        selected = steer_bank[best_idx]  # [B, C]
+
+        # reshape for broadcasting
+        if output.dim() == 4:
+            selected = selected.unsqueeze(-1).unsqueeze(-1)
+
+        # reverse direction steering
+        steer_direction = -selected
+
+        return output + strength * steer_direction
+
     return hook
 
 
+import torch
+import torch.nn.functional as F
+
+
 def register_steering_hooks(unet, layers, steering_embeddings, steering_strength=1.0):
-    """Install forward hooks on specific cross-attention layers of ``unet``.
-
-    This function walks ``unet.named_modules()`` and counts modules whose
-    name contains ``"attn"`` or ``"attention"`` (case-insensitive).  When the
-    count matches a value in ``layers`` the corresponding steering embedding is
-    bound to that module via a forward hook.  Hooks are returned so that they
-    can be removed after inference.
-
-    Parameters
-    ----------
-    unet : torch.nn.Module
-        The UNet model used during diffusion.
-    layers : list of int
-        Indices of attention layers (in visitation order) to steer.
-    steering_embeddings : list of torch.Tensor
-        Embeddings to add after the chosen attention layers.  Must align with
-        ``layers`` in length.
-    steering_strength : float
-        Scaling factor applied to each embedding.
-
-    Returns
-    -------
-    list
-        A list of ``torch.utils.hooks.RemovableHandle`` objects corresponding to
-        the installed hooks.  Call ``handle.remove()`` when steering is no
-        longer needed.
     """
+    Now supports:
+        steering_embeddings = loaded_capture_dict
+        layers = None
+    """
+
     handles = []
+
+    if steering_embeddings is None:
+        return handles
+
+    # ==============================
+    # 🔥 NEW: parse saved dict format
+    # ==============================
+    if isinstance(steering_embeddings, dict):
+
+        parsed_layers = []
+        parsed_embeddings = []
+
+        for concept in steering_embeddings:
+            for template in steering_embeddings[concept]:
+                for ts_index in steering_embeddings[concept][template]:
+                    for layer_idx, entry in steering_embeddings[concept][template][ts_index].items():
+
+                        tensor = entry["tensor"]  # [B, C, H, W] or [B, C]
+
+                        # remove batch dimension
+                        if tensor.dim() == 4:
+                            emb = tensor.mean(dim=[0, 2, 3])  # -> [C]
+                        elif tensor.dim() == 2:
+                            emb = tensor.mean(dim=0)  # -> [C]
+                        else:
+                            continue
+
+                        emb = emb.to(next(unet.parameters()).device)
+
+                        parsed_layers.append(layer_idx)
+                        parsed_embeddings.append(emb)
+
+        layers = parsed_layers
+        steering_embeddings = parsed_embeddings
+
+    # ==============================
+    # original logic below
+    # ==============================
+
     if layers is None or steering_embeddings is None:
         return handles
+
     layer_idx = 0
     emb_iter = iter(zip(layers, steering_embeddings))
+
     try:
         target_layer, target_emb = next(emb_iter)
     except StopIteration:
@@ -135,17 +188,22 @@ def register_steering_hooks(unet, layers, steering_embeddings, steering_strength
 
     for name, module in unet.named_modules():
         lname = name.lower()
+
         if "attn" in lname or "attention" in lname:
+
             if layer_idx == target_layer:
                 handle = module.register_forward_hook(
                     _create_steering_hook(layer_idx, target_emb, steering_strength)
                 )
                 handles.append(handle)
+
                 try:
                     target_layer, target_emb = next(emb_iter)
                 except StopIteration:
                     break
+
             layer_idx += 1
+
     return handles
 
 

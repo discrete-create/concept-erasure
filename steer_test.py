@@ -35,25 +35,10 @@ def main():
 
     # pick a prompt for concept erasure test
     concept = "cat"
+    prompt = f"a photo of {concept}, without any background"
+    prompt_emb = get_text_embedding(tokenizer, text_encoder, [prompt], device)
     # choose one of the templates stored in embs.pt
     embs = torch.load("embs.pt")
-    tmpl = list(embs[concept].keys())[0]
-    print(f"using template from file: {tmpl}")
-
-    # select step index and corresponding embeddings
-    step_index = list(embs[concept][tmpl].keys())[0]  # first step
-    layer_dict = embs[concept][tmpl][step_index]
-    layer_idxs = list(layer_dict.keys())
-    print(f"steering layers: {layer_idxs}, step index {step_index}")
-
-    # normally steering embeddings are added post-attention; for erasure we take negation
-    steering_embeddings = [(-layer_dict[idx]["tensor"]).to(device) for idx in layer_idxs]
-
-    # prepare prompt embedding (same prompt we will generate with)
-    prompt = tmpl.format(concept)
-    prompt_emb = get_text_embedding(tokenizer, text_encoder, [prompt], device)
-    if device.type == "cuda":
-        prompt_emb = prompt_emb.half()
 
     # random starting latents
     latents = torch.randn(
@@ -76,11 +61,9 @@ def main():
 
     
     torch.cuda.empty_cache()
-        
-    steering_embeddings = [emb.to(device) for emb in steering_embeddings]
 
     # install steering hooks in opposite direction (now on correct device)
-    handles = register_steering_hooks(unet, layer_idxs, steering_embeddings, steering_strength=-1.5)
+    handles = register_steering_hooks(unet, [2,5],embs, steering_strength=3)
     print(f"registered {len(handles)} steering hooks (negative direction)")
 
     steered_lat = gen_image(latents.clone(), prompt_emb, tokenizer, text_encoder, unet, scheduler, device, guidance_scale=7.5)
