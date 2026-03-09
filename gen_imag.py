@@ -80,44 +80,39 @@ def step(
 # steering helper -------------------------------------------------------------
 
 
-def _create_steering_hook(idx, steer_tensor, strength):
+
+
+
+def _create_steering_hook(module_name, steer_bank, strength):
     """
-    steer_tensor: Tensor of shape [N, C]
-                  embedding bank used for cosine search
+    steer_bank: Tensor [N, C]  (已堆叠的 embedding bank)
     strength: float
     """
 
-    # 预归一化 bank（只做一次）
-    steer_bank = F.normalize(steer_tensor, dim=-1)
+    # 预归一化一次
+    steer_bank = F.normalize(steer_bank, dim=-1)
 
     def hook(module, inputs, output):
 
-        # output shape: [B, C, H, W] or [B, C]
+        # output: [B, C, H, W] or [B, C]
         if output.dim() == 4:
-            # Global average pooling
             query = output.mean(dim=[2, 3])  # [B, C]
         else:
-            query = output  # already [B, C]
+            query = output  # [B, C]
 
-        # normalize query
         query_norm = F.normalize(query, dim=-1)
 
-        # cosine similarity
-        # [B, C] @ [C, N] -> [B, N]
+        # cosine: [B, C] @ [C, N] -> [B, N]
         sim = torch.matmul(query_norm, steer_bank.T)
 
-        # find most similar embedding index
         best_idx = sim.argmax(dim=-1)  # [B]
 
-        # gather corresponding vectors
         selected = steer_bank[best_idx]  # [B, C]
 
-        # reshape for broadcasting
         if output.dim() == 4:
             selected = selected.unsqueeze(-1).unsqueeze(-1)
 
-        # reverse direction steering
-        steer_direction = -selected
+        steer_direction = -selected  # reverse
 
         return output + strength * steer_direction
 
@@ -127,82 +122,75 @@ def _create_steering_hook(idx, steer_tensor, strength):
 import torch
 import torch.nn.functional as F
 
+def build_steering_schedule(unet, steering_dict):
+    """
+    将 extract 保存的 steering_dict 转换为:
+    {
+        timestep_value: {
+            module_name: stacked_bank_tensor
+        }
+    }
+    """
 
-def register_steering_hooks(unet, layers, steering_embeddings, steering_strength=1.0):
-    """
-    Now supports:
-        steering_embeddings = loaded_capture_dict
-        layers = None
-    """
+    device = next(unet.parameters()).device
+
+    schedule = {}
+    name_to_module = dict(unet.named_modules())
+
+    for concept in steering_dict:
+        for template in steering_dict[concept]:
+            for ts_index in steering_dict[concept][template]:
+
+                for module_name, entry in steering_dict[concept][template][ts_index].items():
+
+                    ts_value = entry["value"]
+                    tensor = entry["tensor"]
+
+                    # pooling 到 [C]
+                    if tensor.dim() == 4:
+                        emb = tensor.mean(dim=[0, 2, 3])
+                    elif tensor.dim() == 3:
+                        emb = tensor.mean(dim=1).squeeze(0)
+                    elif tensor.dim() == 2:
+                        emb = tensor.mean(dim=0)
+                    else:
+                        continue
+
+                    emb = emb.to(device)
+
+                    schedule.setdefault(ts_value, {})
+                    schedule[ts_value].setdefault(module_name, [])
+                    schedule[ts_value][module_name].append(emb)
+
+    # stack bank
+    for t in schedule:
+        for module_name in schedule[t]:
+            bank = torch.stack(schedule[t][module_name], dim=0)
+            schedule[t][module_name] = bank
+
+    return schedule
+def register_steering_hooks_for_timestep(unet, schedule, timestep, strength):
 
     handles = []
 
-    if steering_embeddings is None:
+    if timestep not in schedule:
         return handles
 
-    # ==============================
-    # 🔥 NEW: parse saved dict format
-    # ==============================
-    if isinstance(steering_embeddings, dict):
+    name_to_module = dict(unet.named_modules())
 
-        parsed_layers = []
-        parsed_embeddings = []
+    for module_name, steer_bank in schedule[timestep].items():
 
-        for concept in steering_embeddings:
-            for template in steering_embeddings[concept]:
-                for ts_index in steering_embeddings[concept][template]:
-                    for layer_idx, entry in steering_embeddings[concept][template][ts_index].items():
+        if module_name not in name_to_module:
+            print(f"[WARNING] {module_name} not found in UNet")
+            continue
 
-                        tensor = entry["tensor"]  # [B, C, H, W] or [B, C]
+        module = name_to_module[module_name]
 
-                        # remove batch dimension
-                        if tensor.dim() == 4:
-                            emb = tensor.mean(dim=[0, 2, 3])  # -> [C]
-                        elif tensor.dim() == 2:
-                            emb = tensor.mean(dim=0)  # -> [C]
-                        else:
-                            continue
+        handle = module.register_forward_hook(
+            _create_steering_hook(module_name, steer_bank, strength)
+        )
 
-                        emb = emb.to(next(unet.parameters()).device)
-
-                        parsed_layers.append(layer_idx)
-                        parsed_embeddings.append(emb)
-
-        layers = parsed_layers
-        steering_embeddings = parsed_embeddings
-
-    # ==============================
-    # original logic below
-    # ==============================
-
-    if layers is None or steering_embeddings is None:
-        return handles
-
-    layer_idx = 0
-    emb_iter = iter(zip(layers, steering_embeddings))
-
-    try:
-        target_layer, target_emb = next(emb_iter)
-    except StopIteration:
-        return handles
-
-    for name, module in unet.named_modules():
-        lname = name.lower()
-
-        if "attn" in lname or "attention" in lname:
-
-            if layer_idx == target_layer:
-                handle = module.register_forward_hook(
-                    _create_steering_hook(layer_idx, target_emb, steering_strength)
-                )
-                handles.append(handle)
-
-                try:
-                    target_layer, target_emb = next(emb_iter)
-                except StopIteration:
-                    break
-
-            layer_idx += 1
+        handles.append(handle)
 
     return handles
 
@@ -274,6 +262,9 @@ def get_text_embedding(tokenizer,text_encoder,prompts,device):
     return text_embeddings
   
   
+from tqdm import tqdm
+
+
 def gen_image(latents,
               prompts_emb,
               tokenizer,
@@ -283,69 +274,68 @@ def gen_image(latents,
               device,
               num_inference_steps=50,
               guidance_scale=7.5,
-              steering_layers=None,
               steering_embeddings=None,
-              steering_strength=1.0,
-              steering_schedule: dict = None):
-    """Generate images, optionally applying steering signals during inference.
+              steering_strength=5.0):
 
-    Steering is achieved by installing forward hooks on the specified cross-
-    attention layers of ``unet``.  You can either pre-install hooks before
-    the loop using :func:`register_steering_hooks`, or provide a
-    ``steering_schedule`` that installs/removes hooks at particular
-    timesteps.
-
-    ``steering_schedule`` should be a mapping from timestep (int) to a tuple
-    ``(layers, embeddings, strength)``.  During generation the routine will
-    register the appropriate hooks immediately before calling the UNet for the
-    given timestep and remove them right afterwards.  This allows steering to
-    affect only a subset of time steps.
-
-    Legacy parameters ``steering_layers`` / ``steering_embeddings`` /
-    ``steering_strength`` are ignored and remain only for backwards
-    compatibility.
-    """
     batch_size = 1
-    
     text_embeddings = prompts_emb
-    
+
     unconditional_embeddings = None
+
     if guidance_scale > 1.:
         uc_text = ""
         unconditional_input = tokenizer(
-                    [uc_text] * batch_size,
-                    padding="max_length",
-                    max_length=77,
-                    return_tensors="pt"
-                )
-        unconditional_embeddings = text_encoder(unconditional_input.input_ids.to(device))[0]
-      # text_embeddings = torch.cat([unconditional_embeddings, text_embeddings], dim=0)
-    
+            [uc_text] * batch_size,
+            padding="max_length",
+            max_length=77,
+            return_tensors="pt"
+        )
+        unconditional_embeddings = text_encoder(
+            unconditional_input.input_ids.to(device)
+        )[0]
+
     scheduler.set_timesteps(num_inference_steps)
-    
-    if steering_layers is not None or steering_embeddings is not None:
-        print("[gen_image] warning: steering_layers/embeddings ignored; use register_steering_hooks instead")
 
-    results = []
-    # make a copy of schedule keys for fast membership testing
-    schedule_keys = set(steering_schedule.keys()) if steering_schedule else set()
+    # 🔥 构建 schedule
+    steering_schedule = None
+    if steering_embeddings is not None:
+        steering_schedule = build_steering_schedule(unet, steering_embeddings)
+        print("Steering timesteps:", list(steering_schedule.keys()))
 
-    for i,t in enumerate(tqdm(scheduler.timesteps)):
+    for t in tqdm(scheduler.timesteps):
+
         handles = []
-        if t in schedule_keys:  
-            layers, emb, strength = steering_schedule[t]
-            handles = register_steering_hooks(unet, layers, emb, strength)
+
+        t_value = int(t.item())
+
+        # 🔥 只在 load 到的 timestep 才 steer
+        if steering_schedule is not None:
+            handles = register_steering_hooks_for_timestep(
+                unet,
+                steering_schedule,
+                t_value,
+                steering_strength
+            )
+
         latent_model_input = torch.cat([latents] * 2)
         text_emb = torch.cat([unconditional_embeddings, text_embeddings])
+
         with torch.no_grad():
-            noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_emb).sample
+            noise_pred = unet(
+                latent_model_input,
+                t,
+                encoder_hidden_states=text_emb
+            ).sample
+
         noise_pred_uncon, noise_pred_con = noise_pred.chunk(2)
-        noise_pred = noise_pred_uncon + guidance_scale * (noise_pred_con - noise_pred_uncon)
+        noise_pred = noise_pred_uncon + guidance_scale * (
+            noise_pred_con - noise_pred_uncon
+        )
+
         latents, pred_x0 = step(scheduler, noise_pred, t, latents)
-        # remove hooks if we added them for this step
+
+        # 🔥 移除 hooks
         for h in handles:
             h.remove()
 
-        #results.append([latents,noise_pred, t])
     return latents
- 

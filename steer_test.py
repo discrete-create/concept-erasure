@@ -6,8 +6,27 @@ from gen_imag import (
     gen_image,
     get_text_embedding,
     latent2image,
-    register_steering_hooks,
 )
+
+def get_attn2_name_mapping(unet):
+    """
+    返回:
+        idx2name: {0: full_name, 1: full_name, ...}
+    """
+    idx2name = {}
+    layer_idx = 0
+    attn2_out_list = []
+    for name, module in unet.named_modules():
+        if "attn2" in name.lower():
+            idx2name[layer_idx] = name
+            print(f"[{layer_idx}] {name}")
+            layer_idx += 1
+            if "out" in name.lower():
+                attn2_out_list.append(layer_idx-1)
+
+    print(f"\nTotal attn2 layers: {layer_idx}")
+    print(f"attn2 out layers: {attn2_out_list}")
+    return idx2name
 
 
 def main():
@@ -18,29 +37,37 @@ def main():
 
     # load models
     print(f"loading model {model_name} on {device}")
-    unet = UNet2DConditionModel.from_pretrained(model_name, subfolder="unet").to(device)
-    # load associated VAE for decoding
+    unet = UNet2DConditionModel.from_pretrained(
+        model_name, subfolder="unet"
+    ).to(device)
+
+    # 打印并获取 attn2 mapping
+    idx2name = get_attn2_name_mapping(unet)
+
     from diffusers import AutoencoderKL
     vae = AutoencoderKL.from_pretrained(model_name, subfolder="vae").to(device)
     tokenizer = AutoTokenizer.from_pretrained(model_name, subfolder="tokenizer")
-    text_encoder = AutoModel.from_pretrained(model_name, subfolder="text_encoder").to(device)
+    text_encoder = AutoModel.from_pretrained(
+        model_name, subfolder="text_encoder"
+    ).to(device)
     scheduler = DDIMScheduler.from_pretrained(model_name, subfolder="scheduler")
 
-    # reduce memory by switching to float16 on GPU
+    # reduce memory
     if device.type == "cuda":
-        print("converting models to fp16 for memory savings")
+        print("converting models to fp16")
         unet = unet.half()
         vae = vae.half()
         text_encoder = text_encoder.half()
 
-    # pick a prompt for concept erasure test
+    # prompt
     concept = "cat"
-    prompt = f"a photo of {concept}, without any background"
+    prompt = "a photo of a cat"
     prompt_emb = get_text_embedding(tokenizer, text_encoder, [prompt], device)
-    # choose one of the templates stored in embs.pt
+
+    # load steering bank (按 full_name 存的)
     embs = torch.load("embs.pt")
 
-    # random starting latents
+    # random latents
     latents = torch.randn(
         (1, unet.config.in_channels, 64, 64),
         device=device,
@@ -48,37 +75,63 @@ def main():
     if device.type == "cuda":
         latents = latents.half()
 
-    # run baseline generation
-    # use fewer steps to reduce memory and runtime
     scheduler.set_timesteps(50)
+
     print("generating baseline image")
-    base_lat = gen_image(latents.clone(), prompt_emb, tokenizer, text_encoder, unet, scheduler, device, guidance_scale=7.5)
+    base_lat = gen_image(
+        latents.clone(),
+        prompt_emb,
+        tokenizer,
+        text_encoder,
+        unet,
+        scheduler,
+        device,
+        guidance_scale=7.5,
+    )
+
     base_img = latent2image(vae, base_lat)
-    # save array as PNG
     from PIL import Image
     Image.fromarray(base_img).save("baseline.png")
-    print("baseline image saved to baseline.png")
+    print("baseline image saved")
 
-    
     torch.cuda.empty_cache()
 
-    # install steering hooks in opposite direction (now on correct device)
-    handles = register_steering_hooks(unet, [2,5],embs, steering_strength=3)
-    print(f"registered {len(handles)} steering hooks (negative direction)")
+    # ========= 核心修改部分 =========
 
-    steered_lat = gen_image(latents.clone(), prompt_emb, tokenizer, text_encoder, unet, scheduler, device, guidance_scale=7.5)
+    # 你传的是编号
+    selected_indices = [0, 5, 10, 15, 20]
+
+    # 转换为 full_name
+    selected_names = [idx2name[i] for i in selected_indices]
+
+    print("\nSelected layers for steering:")
+    for i, name in zip(selected_indices, selected_names):
+        print(f"{i} -> {name}")
+
+    # =================================
+
+    steered_lat = gen_image(
+        latents.clone(),
+        prompt_emb,
+        tokenizer,
+        text_encoder,
+        unet,
+        scheduler,
+        device,
+        guidance_scale=7.5,
+        steering_embeddings=embs,
+        steering_strength=15
+    )
+
     steered_img = latent2image(vae, steered_lat)
-    from PIL import Image
     Image.fromarray(steered_img).save("erased.png")
-    print("steered image saved to erased.png")
-
-    # cleanup hooks
-    for h in handles:
-        h.remove()
+    print("steered image saved")
     print("hooks removed")
 
-    # display some diagnostics
-    print(f"baseline image shape {base_img.shape}, erasure image shape {steered_img.shape}")
+    print(
+        f"baseline image shape {base_img.shape}, "
+        f"erasure image shape {steered_img.shape}"
+    )
 
 
 if __name__ == "__main__":
